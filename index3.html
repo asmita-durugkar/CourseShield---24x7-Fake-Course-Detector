@@ -1,0 +1,1603 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CourseShield — Expose Fake Courses 24/7</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a18;
+    --paper: #f5f2eb;
+    --birch: #e8e2d4;
+    --ash: #c8c2b4;
+    --pine: #2d4a3e;
+    --pine-light: #3d6454;
+    --ember: #c94b2a;
+    --ember-light: #e05a38;
+    --amber: #d4892a;
+    --mist: #8a9ba8;
+    --white: #fdfcf8;
+    --radius: 2px;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--white);
+    border-bottom: 1px solid var(--birch);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .nav-logo svg { width: 28px; height: 28px; }
+
+  .nav-logo-text {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.875rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-cta {
+    background: var(--ember);
+    color: var(--white) !important;
+    opacity: 1 !important;
+    padding: 8px 20px;
+    border-radius: var(--radius);
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--ember-light) !important; }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--ink);
+    transition: all 0.3s;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    margin-top: 64px;
+    min-height: calc(100vh - 64px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        var(--birch) 60px,
+        var(--birch) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        var(--birch) 60px,
+        var(--birch) 61px
+      );
+    opacity: 0.5;
+  }
+
+  .hero-left {
+    padding: 80px 48px 80px 72px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--pine);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    margin-bottom: 32px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #5dffa0;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    color: var(--ink);
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--ember);
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--ink);
+    opacity: 0.7;
+    max-width: 440px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .hero-search {
+    display: flex;
+    max-width: 480px;
+    margin-bottom: 32px;
+    border: 1.5px solid var(--ink);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .hero-search input {
+    flex: 1;
+    padding: 14px 18px;
+    border: none;
+    background: transparent;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+  }
+
+  .hero-search input::placeholder { color: var(--ash); }
+
+  .hero-search button {
+    padding: 14px 24px;
+    background: var(--ink);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+  }
+
+  .hero-search button:hover { background: var(--pine); }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: var(--radius);
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--ember);
+    color: var(--white);
+  }
+
+  .btn-primary:hover { background: var(--ember-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+  }
+
+  .btn-outline:hover { background: var(--ink); color: var(--white); }
+
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 48px;
+  }
+
+  .hero-visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 420px;
+    width: 100%;
+    transform: rotate(2deg);
+  }
+
+  .hero-card {
+    background: var(--white);
+    border: 1px solid var(--birch);
+    border-radius: var(--radius);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .hero-card:hover { transform: translateY(-4px); }
+
+  .hero-card:nth-child(2) { margin-top: 32px; }
+  .hero-card:nth-child(4) { margin-top: -20px; }
+
+  .fake-stamp {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: var(--ember);
+    color: var(--white);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    transform: rotate(8deg);
+    border-radius: 1px;
+  }
+
+  .hero-card-platform {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 8px;
+  }
+
+  .hero-card-name {
+    font-family: var(--serif);
+    font-size: 0.95rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+
+  .hero-card-risk {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ember);
+  }
+
+  .risk-bar {
+    flex: 1;
+    height: 3px;
+    background: var(--birch);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .risk-fill {
+    height: 100%;
+    background: var(--ember);
+    border-radius: 2px;
+  }
+
+  /* ─── STATS ─── */
+  .stats {
+    background: var(--ink);
+    color: var(--white);
+    padding: 48px 72px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    border-top: 1px solid #2a2a28;
+  }
+
+  .stat-item {
+    border-left: 1px solid #3a3a38;
+    padding-left: 24px;
+  }
+
+  .stat-item:first-child { border-left: none; padding-left: 0; }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .stat-num span { color: var(--ember); }
+
+  .stat-label {
+    font-size: 0.8rem;
+    font-weight: 300;
+    opacity: 0.6;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 100px 72px; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--birch);
+    padding-bottom: 24px;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .section-link {
+    font-size: 0.875rem;
+    color: var(--pine);
+    text-decoration: none;
+    border-bottom: 1px solid var(--pine);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+  }
+
+  .section-link:hover { opacity: 0.7; }
+
+  /* ─── GALLERY ─── */
+  .gallery-section { background: var(--white); }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 8px 18px;
+    border: 1px solid var(--birch);
+    background: transparent;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--ink);
+    color: var(--white);
+    border-color: var(--ink);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .course-card {
+    border: 1.2px solid var(--birch);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .course-card:nth-child(3n+2) { margin-top: 24px; }
+  .course-card:nth-child(5n+4) { margin-top: -16px; }
+
+  .course-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    border-color: var(--ember);
+  }
+
+  .card-thumb {
+    position: relative;
+    height: 140px;
+    overflow: hidden;
+  }
+
+  .card-thumb-bg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+  }
+
+  .card-fake-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(201, 75, 42, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fake-watermark {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--ember);
+    opacity: 0.85;
+    letter-spacing: 0.2em;
+    border: 3px solid var(--ember);
+    padding: 4px 16px;
+    transform: rotate(-18deg);
+    font-style: italic;
+  }
+
+  .card-body { padding: 16px; }
+
+  .card-platform {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 6px;
+  }
+
+  .card-title {
+    font-family: var(--serif);
+    font-size: 1rem;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+
+  .card-flags {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .card-flag {
+    font-size: 0.72rem;
+    color: var(--ember);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .card-flag::before {
+    content: '⚑';
+    font-size: 0.65rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--birch);
+  }
+
+  .card-date { font-size: 0.7rem; color: var(--ash); }
+
+  .worthless-badge {
+    background: var(--ember);
+    color: var(--white);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 1px;
+  }
+
+  /* ─── VERIFY TOOL ─── */
+  .verify-section { background: var(--paper); }
+
+  .verify-container {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .verify-form {
+    background: var(--white);
+    border: 1px solid var(--birch);
+    border-radius: var(--radius);
+    padding: 48px;
+    margin-top: 48px;
+    text-align: left;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--birch);
+    border-radius: var(--radius);
+    background: var(--paper);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-input:focus { border-color: var(--pine); }
+  .form-input::placeholder { color: var(--ash); }
+
+  .upload-zone {
+    border: 2px dashed var(--birch);
+    border-radius: var(--radius);
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--paper);
+  }
+
+  .upload-zone:hover { border-color: var(--pine); background: var(--birch); }
+
+  .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+
+  .upload-text {
+    font-size: 0.875rem;
+    color: var(--mist);
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--pine);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+
+  .form-submit:hover { background: var(--pine-light); }
+
+  /* Result panel */
+  .result-panel {
+    display: none;
+    margin-top: 32px;
+    padding: 32px;
+    border: 1px solid var(--birch);
+    border-radius: var(--radius);
+    background: var(--white);
+    animation: slideIn 0.4s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-panel.show { display: block; }
+
+  .result-verdict {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--birch);
+  }
+
+  .verdict-icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .verdict-fake { background: #fde8e2; }
+  .verdict-legit { background: #e2f5ea; }
+
+  .verdict-text h3 {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--ember);
+    margin-bottom: 4px;
+  }
+
+  .verdict-text p { font-size: 0.875rem; opacity: 0.7; }
+
+  .scam-score-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .scam-score-bar {
+    height: 8px;
+    background: var(--birch);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .scam-score-fill {
+    height: 100%;
+    width: 85%;
+    background: linear-gradient(90deg, var(--amber), var(--ember));
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+
+  .scam-score-pct {
+    font-size: 0.8rem;
+    color: var(--ember);
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .evidence-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .evidence-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .evidence-list li::before {
+    content: '⚑';
+    color: var(--ember);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .share-btn {
+    padding: 10px 24px;
+    border: 1.5px solid var(--pine);
+    background: transparent;
+    color: var(--pine);
+    font-family: var(--sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .share-btn:hover { background: var(--pine); color: var(--white); }
+
+  /* ─── JOB VALUE ─── */
+  .jobvalue-section { background: var(--ink); color: var(--white); }
+
+  .jobvalue-section .section-title { color: var(--white); }
+  .jobvalue-section .section-label { color: var(--amber); }
+  .jobvalue-section .section-link { color: var(--amber); border-color: var(--amber); }
+
+  .jv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .jv-form {
+    background: #242422;
+    border: 1px solid #333330;
+    border-radius: var(--radius);
+    padding: 40px;
+  }
+
+  .jv-form .form-input {
+    background: #1a1a18;
+    border-color: #333330;
+    color: var(--white);
+  }
+
+  .jv-form .form-input:focus { border-color: var(--amber); }
+  .jv-form .form-label { color: rgba(255,255,255,0.7); }
+
+  .jv-form select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+
+  .jv-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--amber);
+    color: var(--ink);
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .jv-submit:hover { opacity: 0.85; }
+
+  .jv-results {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .jv-metric {
+    background: #242422;
+    border: 1px solid #333330;
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+
+  .jv-metric-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .jv-metric-name {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .jv-metric-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 1px;
+  }
+
+  .badge-low { background: rgba(201,75,42,0.2); color: var(--ember-light); }
+  .badge-high { background: rgba(45,74,62,0.4); color: #7ecba0; }
+  .badge-mid { background: rgba(212,137,42,0.2); color: var(--amber); }
+
+  .jv-metric-val {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .jv-metric-sub { font-size: 0.8rem; opacity: 0.5; }
+
+  .employ-score-bar {
+    height: 6px;
+    background: #333330;
+    border-radius: 3px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+
+  .employ-score-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1.2s ease;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
+
+  .comparison-table th {
+    text-align: left;
+    padding: 8px 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    border-bottom: 1px solid #333330;
+  }
+
+  .comparison-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid #2a2a28;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .comparison-table td:last-child { text-align: right; }
+
+  .cell-red { color: var(--ember-light) !important; }
+  .cell-green { color: #7ecba0 !important; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #111110;
+    color: rgba(255,255,255,0.6);
+    padding: 64px 72px 32px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #2a2a28;
+  }
+
+  .footer-brand-name {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .footer-desc {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .newsletter-form {
+    display: flex;
+    border: 1px solid #2a2a28;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    outline: none;
+  }
+
+  .newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
+
+  .newsletter-form button {
+    padding: 10px 16px;
+    background: var(--ember);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+
+  .newsletter-form button:hover { background: var(--ember-light); }
+
+  .footer-col-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .footer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8rem;
+  }
+
+  .ai-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1a1a18;
+    border: 1px solid #2a2a28;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .ai-badge::before { content: '🤖'; font-size: 0.9rem; }
+
+  .socials {
+    display: flex;
+    gap: 16px;
+  }
+
+  .socials a {
+    width: 36px; height: 36px;
+    border: 1px solid #2a2a28;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .socials a:hover { border-color: var(--white); color: var(--white); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 1024px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .jv-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 48px 24px; }
+    .hero-right { display: none; }
+    section { padding: 64px 24px; }
+    .stats { padding: 32px 24px; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .course-card:nth-child(3n+2), .course-card:nth-child(5n+4) { margin-top: 0; }
+    .jv-form { padding: 24px; }
+    footer { padding: 48px 24px 24px; }
+    .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 64px; left: 0; right: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--birch);
+    padding: 24px;
+    z-index: 99;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--birch);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 2L4 7v9c0 7.18 5.16 13.9 12 15.49C22.84 29.9 28 23.18 28 16V7L16 2z" fill="#2d4a3e"></path>
+      <path d="M11 16l3 3 7-7" stroke="#fdfcf8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span class="nav-logo-text">CourseShield</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#gallery">Fake Courses</a></li>
+    <li><a href="#verify">Verify Certificate</a></li>
+    <li><a href="#jobvalue">Job Value Checker</a></li>
+    <li><a href="#footer">About</a></li>
+    <li><a href="#" class="nav-cta">Report a Scam</a></li>
+  </ul>
+
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#gallery" onclick="closeMenu()">Fake Courses</a>
+  <a href="#verify" onclick="closeMenu()">Verify Certificate</a>
+  <a href="#jobvalue" onclick="closeMenu()">Job Value Checker</a>
+  <a href="#footer" onclick="closeMenu()">About</a>
+  <a href="#" onclick="closeMenu()">Report a Scam →</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="hero" style="padding:0;">
+  <div class="hero-bg"></div>
+  <div class="hero-left">
+    <div class="hero-badge">Live Detection Active</div>
+    <h1>Expose <em>Fake</em><br>Courses 24/7</h1>
+    <p>We scan, verify, and expose fraudulent online courses before they cost you time, money, and credibility.</p>
+
+    <div class="hero-search">
+      <input type="text" placeholder="Paste a course URL or name…">
+      <button>Scan Now</button>
+    </div>
+
+    <div class="hero-buttons">
+      <a href="#verify" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2L2 4.5v5C2 12.6 4.6 15.5 8 16c3.4-.5 6-3.4 6-6.5v-5L8 2z" fill="white" opacity=".8"></path><path d="M5 8l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round"></path></svg>
+        Verify My Course
+      </a>
+      <a href="#gallery" class="btn btn-outline">Browse Fake Courses →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-visual">
+      <!-- Card 1 -->
+      <div class="hero-card">
+        <div class="fake-stamp">FAKE</div>
+        <div class="card-platform">Udemy Clone</div>
+        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">Master Python in 24 Hours Guaranteed</div>
+        <div class="hero-card-risk">
+          <span>89%</span>
+          <div class="risk-bar"><div class="risk-fill" style="width:89%"></div></div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="hero-card">
+        <div class="fake-stamp">FAKE</div>
+        <div class="card-platform">FakeCademy</div>
+        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">AI Expert Certification $12</div>
+        <div class="hero-card-risk">
+          <span>97%</span>
+          <div class="risk-bar"><div class="risk-fill" style="width:97%"></div></div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="hero-card">
+        <div class="fake-stamp">FAKE</div>
+        <div class="card-platform">LearnFast Pro</div>
+        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">Six-Figure Income Secrets Course</div>
+        <div class="hero-card-risk">
+          <span>92%</span>
+          <div class="risk-bar"><div class="risk-fill" style="width:92%"></div></div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="hero-card">
+        <div class="fake-stamp">FAKE</div>
+        <div class="card-platform">CertHub</div>
+        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">Google Cloud Engineer — Weekend Course</div>
+        <div class="hero-card-risk">
+          <span>76%</span>
+          <div class="risk-bar"><div class="risk-fill" style="width:76%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item fade-in visible">
+    <div class="stat-num">12<span>,847</span></div>
+    <div class="stat-label">Fake Courses Detected</div>
+  </div>
+  <div class="stat-item fade-in visible" style="transition-delay:.1s">
+    <div class="stat-num">$<span>4.2M</span></div>
+    <div class="stat-label">Losses Prevented</div>
+  </div>
+  <div class="stat-item fade-in visible" style="transition-delay:.2s">
+    <div class="stat-num">98<span>.3%</span></div>
+    <div class="stat-label">Detection Accuracy</div>
+  </div>
+  <div class="stat-item fade-in visible" style="transition-delay:.3s">
+    <div class="stat-num">340<span>+</span></div>
+    <div class="stat-label">Platforms Monitored</div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<section id="gallery" class="gallery-section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Latest Detections</div>
+      <h2 class="section-title">Fake Course<br>Mugshots</h2>
+    </div>
+    <a href="#" class="section-link">View all 12,847 →</a>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="setFilter(this)">All Platforms</button>
+    <button class="filter-btn" onclick="setFilter(this)">Udemy Clones</button>
+    <button class="filter-btn" onclick="setFilter(this)">LinkedIn Fakes</button>
+    <button class="filter-btn" onclick="setFilter(this)">YouTube Scams</button>
+    <button class="filter-btn" onclick="setFilter(this)">Telegram</button>
+  </div>
+
+  <div class="gallery-grid">
+
+    <div class="course-card fade-in visible">
+      <div class="card-thumb">
+        <div class="card-thumb-bg" style="background:#fde8e2;">📜</div>
+        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
+      </div>
+      <div class="card-body">
+        <div class="card-platform">Udemy Clone</div>
+        <div class="card-title">Complete AWS Solutions Architect — 3 Day Bootcamp</div>
+        <div class="card-flags">
+          <span class="card-flag">No LinkedIn verification</span>
+          <span class="card-flag">Anonymous instructor</span>
+          <span class="card-flag">Stock photo testimonials</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">Feb 18, 2026</span>
+          <span class="worthless-badge">Value: Worthless</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card fade-in visible" style="transition-delay:.1s">
+      <div class="card-thumb">
+        <div class="card-thumb-bg" style="background:#fff8e2;">🎓</div>
+        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
+      </div>
+      <div class="card-body">
+        <div class="card-platform">FakeCademy</div>
+        <div class="card-title">Machine Learning Engineer Certification — $9.99</div>
+        <div class="card-flags">
+          <span class="card-flag">Employer unrecognised cert</span>
+          <span class="card-flag">No practical projects</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">Feb 17, 2026</span>
+          <span class="worthless-badge">Value: Worthless</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card fade-in visible" style="transition-delay:.2s">
+      <div class="card-thumb">
+        <div class="card-thumb-bg" style="background:#e8f2e8;">💰</div>
+        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
+      </div>
+      <div class="card-body">
+        <div class="card-platform">Telegram Channel</div>
+        <div class="card-title">Make $10K/Month Trading — Secret Course</div>
+        <div class="card-flags">
+          <span class="card-flag">Guaranteed income claims</span>
+          <span class="card-flag">No regulatory registration</span>
+          <span class="card-flag">Crypto-only payment</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">Feb 16, 2026</span>
+          <span class="worthless-badge">Value: Worthless</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card fade-in visible" style="transition-delay:.3s">
+      <div class="card-thumb">
+        <div class="card-thumb-bg" style="background:#e8eef5;">🧠</div>
+        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
+      </div>
+      <div class="card-body">
+        <div class="card-platform">YouTube Course</div>
+        <div class="card-title">ChatGPT &amp; AI Master Class — Official Google Cert</div>
+        <div class="card-flags">
+          <span class="card-flag">Falsely claims Google affiliation</span>
+          <span class="card-flag">Copy-pasted content</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-date">Feb 15, 2026</span>
+          <span class="worthless-badge">Value: Worthless</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VERIFY TOOL -->
+<section id="verify" class="verify-section">
+  <div class="verify-container">
+    <div class="section-label" style="text-align:center">Course Verification</div>
+    <h2 class="section-title">Is Your Certificate<br><em style="font-family:var(--serif);font-style:italic;color:var(--pine)">Actually Worth</em> Anything?</h2>
+    <p style="margin-top:16px;opacity:.7;font-size:1rem;line-height:1.7">Enter a course URL or upload a certificate. Our AI cross-references 340+ employer databases and platform APIs to give you a verdict in seconds.</p>
+
+    <div class="verify-form fade-in visible">
+      <div class="form-group">
+        <label class="form-label">Course URL or Name</label>
+        <input type="text" class="form-input" placeholder="https://example-course-platform.com/course/…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Or Upload Certificate / QR Code</label>
+        <div class="upload-zone">
+          <div class="upload-icon">📄</div>
+          <div class="upload-text">Drop a file here, or <strong>click to browse</strong><br><span style="font-size:.75rem;opacity:.6">PNG, JPG, PDF up to 10MB</span></div>
+        </div>
+      </div>
+      <button class="form-submit" onclick="showResult()">🔍 Scan &amp; Verify Course</button>
+
+      <div class="result-panel" id="resultPanel">
+        <div class="result-verdict">
+          <div class="verdict-icon verdict-fake">⚑</div>
+          <div class="verdict-text">
+            <h3>Likely Fraudulent</h3>
+            <p>High confidence detection — 85% Fake Risk Score</p>
+          </div>
+        </div>
+        <div class="scam-score-label">Fake Risk Score</div>
+        <div class="scam-score-bar"><div class="scam-score-fill" id="scoreBar" style="width:0%"></div></div>
+        <div class="scam-score-pct">85% fake risk detected</div>
+        <ul class="evidence-list">
+          <li>Instructor not verifiable on LinkedIn or professional directories</li>
+          <li>Certificate not recognised by any of 847 employers in our database</li>
+          <li>Vague curriculum with no practical capstone projects</li>
+          <li>Platform registered 4 months ago — no track record</li>
+          <li>Multiple user reports of copy-pasted course content</li>
+        </ul>
+        <button class="share-btn">Share This Report →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB VALUE CHECKER -->
+<section id="jobvalue" class="jobvalue-section">
+  <div class="section-header" style="border-color:#2a2a28">
+    <div>
+      <div class="section-label">Employment Intelligence</div>
+      <h2 class="section-title">Job Market<br>Value Checker</h2>
+    </div>
+    <a href="#" class="section-link">View salary data →</a>
+  </div>
+
+  <div class="jv-grid">
+    <div class="jv-form">
+      <div class="form-group">
+        <label class="form-label" style="color:rgba(255,255,255,.6)">Certificate Issuing Body</label>
+        <input type="text" class="form-input" placeholder="e.g. Google, Coursera, Random Platform…">
+      </div>
+      <div class="form-group">
+        <label class="form-label" style="color:rgba(255,255,255,.6)">Skills Covered</label>
+        <input type="text" class="form-input" placeholder="Python, Machine Learning, Cloud…">
+      </div>
+      <div class="form-group">
+        <label class="form-label" style="color:rgba(255,255,255,.6)">Course Price Paid</label>
+        <input type="text" class="form-input" placeholder="$499">
+      </div>
+      <div class="form-group">
+        <label class="form-label" style="color:rgba(255,255,255,.6)">Target Job Role</label>
+        <select class="form-input" style="background:#1a1a18;border-color:#333330;color:white">
+          <option>Data Scientist</option>
+          <option>Software Engineer</option>
+          <option>Cloud Architect</option>
+          <option>AI/ML Engineer</option>
+          <option>Product Manager</option>
+        </select>
+      </div>
+      <button class="jv-submit">Calculate Job Value →</button>
+    </div>
+
+    <div class="jv-results">
+      <div class="jv-metric fade-in">
+        <div class="jv-metric-header">
+          <span class="jv-metric-name">Employer Recognition</span>
+          <span class="jv-metric-badge badge-low">Low Risk</span>
+        </div>
+        <div class="jv-metric-val">0 / 847</div>
+        <div class="jv-metric-sub">Employers in our database recognise this cert</div>
+      </div>
+
+      <div class="jv-metric fade-in" style="transition-delay:.1s">
+        <div class="jv-metric-header">
+          <span class="jv-metric-name">LinkedIn Job Demand</span>
+          <span class="jv-metric-badge badge-low">Very Low</span>
+        </div>
+        <div class="jv-metric-val">2 openings</div>
+        <div class="jv-metric-sub">vs 14,200 for Google Cloud cert in same role</div>
+      </div>
+
+      <div class="jv-metric fade-in" style="transition-delay:.2s">
+        <div class="jv-metric-header">
+          <span class="jv-metric-name">Employability Score</span>
+          <span class="jv-metric-badge badge-low">8 / 100</span>
+        </div>
+        <div class="jv-metric-val">Very Poor</div>
+        <div class="employ-score-bar">
+          <div class="employ-score-fill" style="width:8%;background:var(--ember)"></div>
+        </div>
+      </div>
+
+      <div class="jv-metric fade-in" style="transition-delay:.3s">
+        <div class="jv-metric-header">
+          <span class="jv-metric-name">Platform Comparison</span>
+        </div>
+        <table class="comparison-table">
+          <tbody><tr>
+            <th>Platform</th>
+            <th>Recognition</th>
+            <th>Avg Salary ↑</th>
+          </tr>
+          <tr>
+            <td>Google Certs</td>
+            <td class="cell-green">★★★★★</td>
+            <td class="cell-green">+$18K</td>
+          </tr>
+          <tr>
+            <td>Coursera Pro</td>
+            <td class="cell-green">★★★★☆</td>
+            <td class="cell-green">+$12K</td>
+          </tr>
+          <tr>
+            <td>AWS Training</td>
+            <td class="cell-green">★★★★★</td>
+            <td class="cell-green">+$22K</td>
+          </tr>
+          <tr>
+            <td style="color:var(--ember-light)">This Certificate</td>
+            <td class="cell-red">☆☆☆☆☆</td>
+            <td class="cell-red">$0</td>
+          </tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">CourseShield</div>
+      <p class="footer-desc">We protect learners from fraudulent online courses, fake certificates, and education scams — 24 hours a day, 7 days a week.</p>
+      <p style="font-size:.75rem;margin-bottom:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.5;">Stay Alerted on New Scams</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com">
+        <button>Subscribe</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Platform</div>
+      <ul class="footer-links">
+        <li><a href="#">Fake Course Gallery</a></li>
+        <li><a href="#">Verify Certificate</a></li>
+        <li><a href="#">Job Value Checker</a></li>
+        <li><a href="#">Report a Scam</a></li>
+        <li><a href="#">API Access</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <ul class="footer-links">
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">GDPR</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <span>© 2026 CourseShield. All rights reserved.</span>
+      <span class="ai-badge">Powered by AI Detection</span>
+    </div>
+    <div class="socials">
+      <a href="#" title="Twitter">𝕏</a>
+      <a href="#" title="LinkedIn">in</a>
+      <a href="#" title="GitHub">⌘</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+
+  // Filter buttons
+  function setFilter(btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // Verify result
+  function showResult() {
+    const panel = document.getElementById('resultPanel');
+    panel.classList.add('show');
+    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => {
+      document.getElementById('scoreBar').style.width = '85%';
+    }, 300);
+  }
+
+  // Intersection observer for fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body></html>
