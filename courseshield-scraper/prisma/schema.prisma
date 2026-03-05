@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id          String       @id @default(uuid())
+  url         String       @unique
+  title       String?
+  platform    String?
+  instructor  String?
+  price       Float?
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  scrapeJobs  ScrapeJob[]
+}
+
+model ScrapeJob {
+  id          String          @id @default(uuid())
+  courseId    String
+  course      Course          @relation(fields: [courseId], references: [id])
+  triggeredBy String          // "manual" or "scheduled"
+  status      String          // "pending", "success", "failed"
+  rawText     String?
+  scrapedAt   DateTime        @default(now())
+  features    CourseFeatures?
+  result      AnalysisResult?
+}
+
+model CourseFeatures {
+  id                       String    @id @default(uuid())
+  scrapeJobId              String    @unique
+  scrapeJob                ScrapeJob @relation(fields: [scrapeJobId], references: [id])
+  wordCount                Int?
+  hasInflatedClaims        Boolean   @default(false)
+  hasMoneyBackGuarantee    Boolean   @default(false)
+  descriptionLength        Int?
+  titleDescriptionMismatch Boolean   @default(false)
+  reviewVelocity           Float?
+  instructorCourseCount    Int?
+  pricingAnomalyScore      Float?
+  createdAt                DateTime  @default(now())
+}
+
+model AnalysisResult {
+  id              String    @id @default(uuid())
+  scrapeJobId     String    @unique
+  scrapeJob       ScrapeJob @relation(fields: [scrapeJobId], references: [id])
+  verdict         String    // "FAKE", "LEGIT", "SUSPICIOUS"
+  confidenceScore Float?
+  flaggedReasons  String[]
+  analyzedAt      DateTime  @default(now())
+}
