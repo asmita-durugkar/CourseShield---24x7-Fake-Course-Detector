@@ -45,6 +45,48 @@ app.get('/job/:id', async (req, res) => {
   });
 });
 
+app.post('/analyze', async (req, res) => {
+  const {
+    title,
+    description,
+    price,
+    num_reviews,
+    num_subscribers,
+    num_lectures,
+    content_duration,
+    instructor,
+    published_date,
+    reviews,
+  } = req.body;
+
+  // Validate required fields
+  if (!title || !description) {
+    return res.status(400).json({ error: 'title and description are required' });
+  }
+
+  const job = await scrapeQueue.add('manual', {
+    manual: true,
+    courseData: {
+      title,
+      description,
+      price,
+      num_reviews,
+      num_subscribers,
+      num_lectures,
+      content_duration,
+      instructor,
+      published_date,
+      reviews,
+    }
+  }, {
+    attempts: 3,
+    backoff: { type: 'exponential', delay: 3000 },
+  });
+
+  const result = await job.waitUntilFinished(scrapeQueueEvents, 60000);
+  res.json({ jobId: job.id, status: 'completed', result });
+});
+
 app.get('/health', (_, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 3000;

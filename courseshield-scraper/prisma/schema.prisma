@@ -45,9 +45,10 @@ model CourseFeatures {
   reviewVelocity           Float?
   instructorCourseCount    Int?
   pricingAnomalyScore      Float?
+  subscriberToReviewRatio  Float?
+  contentPerLecture        Float?
   createdAt                DateTime  @default(now())
 }
-
 model AnalysisResult {
   id              String    @id @default(uuid())
   scrapeJobId     String    @unique
