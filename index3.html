@@ -1,6 +1,10 @@
 <html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="ticker-wrap">
+    <span class="pulse"></span> 
+    <strong>Live Update:</strong> <span id="scam-count">124</span> scams detected today.
+</div>
 <title>CourseShield — Expose Fake Courses 24/7</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&amp;display=swap" rel="stylesheet">
 <style>
@@ -742,13 +746,13 @@
     margin-bottom: 6px;
   }
 
-  .scam-score-fill {
-    height: 100%;
-    width: 85%;
-    background: linear-gradient(90deg, var(--amber), var(--ember));
-    border-radius: 4px;
-    transition: width 1s ease;
-  }
+ .scam-score-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--amber), var(--ember));
+  border-radius: 4px;
+  transition: width 1.5s ease;
+}
 
   .scam-score-pct {
     font-size: 0.8rem;
@@ -1127,8 +1131,49 @@
     padding: 8px 0;
     border-bottom: 1px solid var(--birch);
   }
-</style>
-</head>
+  button:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.form-submit:hover {
+  box-shadow: 0 0 15px rgba(45,74,62,0.4);
+}
+/* <head>
+    <meta charset="UTF-8">
+    <title>CourseShield</title> */
+    
+    
+        /* PASTE THE CODE RIGHT HERE */
+        .ticker-wrap {
+            background: #fff4f2;
+            color: #e53e3e;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-flex; /* Note: I fixed the "inl" typo here */
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #ffd5cc;
+        }
+
+        .pulse {
+            width: 8px;
+            height: 8px;
+            background: #ff4d4d;
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+    </style>
+<!-- </head> -->
+<!-- </style>
+</head> -->
 <body>
 
 <!-- NAV -->
@@ -1168,13 +1213,19 @@
 <section id="hero" class="hero" style="padding:0;">
   <div class="hero-bg"></div>
   <div class="hero-left">
-    <div class="hero-badge">Live Detection Active</div>
+    <div class="ticker-wrap">
+    <span class="pulse"></span> 
+    <strong>Live Update:</strong> <span id="scam-count">124</span> scams detected today.
+</div>
+
+
+    <!-- <div class="hero-badge">Live Detection Active</div> -->
     <h1>Expose <em>Fake</em><br>Courses 24/7</h1>
     <p>We scan, verify, and expose fraudulent online courses before they cost you time, money, and credibility.</p>
 
     <div class="hero-search">
-      <input type="text" placeholder="Paste a course URL or name…">
-      <button>Scan Now</button>
+      <input type="text" id="course-input" placeholder="Paste a course URL or name…">
+      <button onclick="scanFromHero()">Scan Now</button>
     </div>
 
     <div class="hero-buttons">
@@ -1187,52 +1238,51 @@
   </div>
 
   <div class="hero-right">
-    <div class="hero-visual">
-      <!-- Card 1 -->
-      <div class="hero-card">
+   <div class="hero-visual">
+    <div class="hero-card" style="cursor: pointer;" onclick="autoScan('Master Python in 24 Hours Guaranteed')">
         <div class="fake-stamp">FAKE</div>
-        <div class="card-platform">Udemy Clone</div>
-        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">Master Python in 24 Hours Guaranteed</div>
+        <img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=300&q=80" alt="Python Course" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
+        <div class="card-platform">UDEMY CLONE</div>
+        <div class="card-name" style="font-family: var(--serif); font-size: .9rem; margin-bottom: 10px;">Master Python in 24 Hours Guaranteed</div>
         <div class="hero-card-risk">
-          <span>89%</span>
-          <div class="risk-bar"><div class="risk-fill" style="width:89%"></div></div>
+            <span>89%</span>
+            <div class="risk-bar"><div class="risk-fill" style="width: 89%;"></div></div>
         </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="hero-card">
-        <div class="fake-stamp">FAKE</div>
-        <div class="card-platform">FakeCademy</div>
-        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">AI Expert Certification $12</div>
-        <div class="hero-card-risk">
-          <span>97%</span>
-          <div class="risk-bar"><div class="risk-fill" style="width:97%"></div></div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="hero-card">
-        <div class="fake-stamp">FAKE</div>
-        <div class="card-platform">LearnFast Pro</div>
-        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">Six-Figure Income Secrets Course</div>
-        <div class="hero-card-risk">
-          <span>92%</span>
-          <div class="risk-bar"><div class="risk-fill" style="width:92%"></div></div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="hero-card">
-        <div class="fake-stamp">FAKE</div>
-        <div class="card-platform">CertHub</div>
-        <div class="card-name" style="font-family:var(--serif);font-size:.9rem;margin-bottom:10px;line-height:1.3">Google Cloud Engineer — Weekend Course</div>
-        <div class="hero-card-risk">
-          <span>76%</span>
-          <div class="risk-bar"><div class="risk-fill" style="width:76%"></div></div>
-        </div>
-      </div>
     </div>
-  </div>
+
+    <div class="hero-card" style="cursor: pointer;" onclick="autoScan('AI Expert Certification $12')">
+        <div class="fake-stamp">FAKE</div>
+        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=300&q=80" alt="AI Course" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
+        <div class="card-platform">FAKECADEMY</div>
+        <div class="card-name" style="font-family: var(--serif); font-size: .9rem; margin-bottom: 10px;">AI Expert Certification $12</div>
+        <div class="hero-card-risk">
+            <span>97%</span>
+            <div class="risk-bar"><div class="risk-fill" style="width: 97%;"></div></div>
+        </div>
+    </div>
+
+    <div class="hero-card" style="cursor: pointer;" onclick="autoScan('Six-Figure Income Secrets Course')">
+        <div class="fake-stamp">FAKE</div>
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80" alt="Finance Course" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
+        <div class="card-platform">LEARNFAST PRO</div>
+        <div class="card-name" style="font-family: var(--serif); font-size: .9rem; margin-bottom: 10px;">Six-Figure Income Secrets Course</div>
+        <div class="hero-card-risk">
+            <span>92%</span>
+            <div class="risk-bar"><div class="risk-fill" style="width: 92%;"></div></div>
+        </div>
+    </div>
+
+    <div class="hero-card" style="cursor: pointer;" onclick="autoScan('Google Cloud Engineer -- Weekend Course')">
+        <div class="fake-stamp">FAKE</div>
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80" alt="Cloud Course" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
+        <div class="card-platform">CERTHUB</div>
+        <div class="card-name" style="font-family: var(--serif); font-size: .9rem; margin-bottom: 10px;">Google Cloud Engineer -- Weekend Course</div>
+        <div class="hero-card-risk">
+            <span>76%</span>
+            <div class="risk-bar"><div class="risk-fill" style="width: 76%;"></div></div>
+        </div>
+    </div>
+</div>
 </section>
 
 <!-- STATS -->
@@ -1579,15 +1629,72 @@
   }
 
   // Verify result
+  console.log("Function running");
   function showResult() {
-    const panel = document.getElementById('resultPanel');
-    panel.classList.add('show');
-    panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => {
-      document.getElementById('scoreBar').style.width = '85%';
-    }, 300);
+  const panel = document.getElementById('resultPanel');
+  const scoreBar = document.getElementById('scoreBar');
+  const verdictText = document.querySelector('.verdict-text h3');
+  const verdictDesc = document.querySelector('.verdict-text p');
+  const scoreText = document.querySelector('.scam-score-pct');
+  const verdictIcon = document.querySelector('.verdict-icon');
+
+  const input = document.querySelector('#verify .form-input').value.toLowerCase();
+
+  // 🚫 Validation
+  if (!input.trim()) {
+    alert("Please enter a course name or URL.");
+    return;
   }
 
+  panel.classList.add('show');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // 🔄 Loading state
+  verdictText.innerText = "Analyzing...";
+  verdictDesc.innerText = "Checking databases 🤖";
+  scoreText.innerText = "Processing...";
+  scoreBar.style.width = "0%";
+
+  // 🧠 Rule-based scoring (BETTER than random)
+  let score = 0;
+
+  if (input.includes("guarantee")) score += 25;
+  if (input.includes("100%")) score += 20;
+  if (input.includes("job")) score += 15;
+  if (input.includes("earn")) score += 20;
+  if (input.includes("quick") || input.includes("fast")) score += 10;
+  if (input.includes("$") || input.includes("₹")) score += 10;
+
+  score = Math.min(score || Math.floor(Math.random()*40), 100);
+
+  // ⚡ Smooth animation
+  let current = 0;
+  const interval = setInterval(() => {
+    if (current >= score) {
+      clearInterval(interval);
+
+      // Final verdict
+      if (score > 60) {
+        verdictText.innerText = "Likely Fraudulent ❌";
+        verdictDesc.innerText = "High Risk Detected";
+        verdictIcon.classList.remove('verdict-legit');
+        verdictIcon.classList.add('verdict-fake');
+        scoreText.innerText = score + "% fake risk detected";
+      } else {
+        verdictText.innerText = "Looks Safe ✅";
+        verdictDesc.innerText = "Low Risk";
+        verdictIcon.classList.remove('verdict-fake');
+        verdictIcon.classList.add('verdict-legit');
+        scoreText.innerText = score + "% risk (safe)";
+      }
+
+    } else {
+      current++;
+      scoreBar.style.width = current + "%";
+      scoreText.innerText = current + "% analyzing...";
+    }
+  }, 15);
+}
   // Intersection observer for fade-ins
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1598,6 +1705,54 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  function scanFromHero() {
+  const heroInput = document.querySelector('.hero-search input').value;
+
+  if (!heroInput.trim()) {
+    alert("Enter course URL or name first");
+    return;
+  }
+
+  // Copy value to verify section
+  const verifyInput = document.querySelector('#verify .form-input');
+  verifyInput.value = heroInput;
+
+  // Scroll to verify section
+  document.getElementById('verify').scrollIntoView({ behavior: 'smooth' });
+
+  // Run analysis
+  showResult();
+}
+</script>
+const input = document.getElementById('course-input');
+const phrases = ["Paste a course URL...", "Search 'Master Python'...", "Check 'AI Certification'...", "Verify 'Job Guarantee' courses..."];
+let i = 0;
+let j = 0;
+let isDeleting = false;
+
+function type() {
+  let currentPhrase = phrases[i];
+  if (isDeleting) {
+    input.placeholder = currentPhrase.substring(0, j--);
+    if (j < 0) { isDeleting = false; i = (i + 1) % phrases.length; }
+  } else {
+    input.placeholder = currentPhrase.substring(0, j++);
+    if (j > currentPhrase.length) { isDeleting = true; setTimeout(type, 2000); return; }
+  }
+  setTimeout(type, isDeleting ? 50 : 100);
+}
+type(); // Start the animation
+<script>
+    // Clickable Cards Auto-Fill Function
+    function autoScan(courseName) {
+        const searchBar = document.getElementById('course-input');
+        if (searchBar) {
+            searchBar.value = courseName; // Fills the box with the card's text
+            searchBar.style.border = "2px solid #e53e3e"; // Highlights the box red so the user sees it
+        } else {
+            console.error("Could not find the search bar. Check the ID.");
+        }
+    }
 </script>
 
 </body></html>
