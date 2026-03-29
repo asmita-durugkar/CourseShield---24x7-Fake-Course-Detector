@@ -1170,6 +1170,67 @@
             50% { opacity: 0.3; }
             100% { opacity: 1; }
         }
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; margin-top: 20px;">
+    
+    <div class="scam-card" data-category="udemy" onclick="autoScan('Complete AWS Solutions Architect')" style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; overflow: hidden;">
+        <div style="height: 180px; background-color: #fdf5e6; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span style="color: #e53e3e; font-weight: 900; font-size: 2rem; border: 4px solid #e53e3e; padding: 5px 15px; transform: rotate(-15deg);">FAKE</span>
+        </div>
+        <div style="padding: 20px; text-align: left;">
+            <p style="color: #888; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin: 0 0 8px 0;">Udemy Clone</p>
+            <h3 style="font-family: var(--serif), serif; font-size: 1.1rem; color: #1a1a1a; margin: 0 0 15px 0;">Complete AWS Solutions Architect — 3 Day Bootcamp</h3>
+            <div style="color: #e53e3e; font-size: 0.85rem; line-height: 1.6;">
+                <div>🚩 No LinkedIn verification</div>
+                <div>🚩 Anonymous instructor</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scam-card" data-category="linkedin" onclick="autoScan('Premium Agile Scrum Master Badge')" style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; overflow: hidden;">
+        <div style="height: 180px; background-color: #e6f0fa; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span style="color: #e53e3e; font-weight: 900; font-size: 2rem; border: 4px solid #e53e3e; padding: 5px 15px; transform: rotate(-5deg);">FAKE</span>
+        </div>
+        <div style="padding: 20px; text-align: left;">
+            <p style="color: #888; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin: 0 0 8px 0;">LinkedIn Fake</p>
+            <h3 style="font-family: var(--serif), serif; font-size: 1.1rem; color: #1a1a1a; margin: 0 0 15px 0;">Premium Agile Scrum Master Professional Badge</h3>
+            <div style="color: #e53e3e; font-size: 0.85rem; line-height: 1.6;">
+                <div>🚩 Fake certification body</div>
+                <div>🚩 Stolen credential graphics</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scam-card" data-category="youtube" onclick="autoScan('ChatGPT & AI Master Class')" style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; overflow: hidden;">
+        <div style="height: 180px; background-color: #fae6e6; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span style="color: #e53e3e; font-weight: 900; font-size: 2rem; border: 4px solid #e53e3e; padding: 5px 15px; transform: rotate(10deg);">FAKE</span>
+        </div>
+        <div style="padding: 20px; text-align: left;">
+            <p style="color: #888; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin: 0 0 8px 0;">YouTube Scam</p>
+            <h3 style="font-family: var(--serif), serif; font-size: 1.1rem; color: #1a1a1a; margin: 0 0 15px 0;">ChatGPT & AI Master Class — Official Google Cert</h3>
+            <div style="color: #e53e3e; font-size: 0.85rem; line-height: 1.6;">
+                <div>🚩 Falsely claims Google affiliation</div>
+                <div>🚩 Copy-pasted free content</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scam-card" data-category="telegram" onclick="autoScan('Make $10K/Month Trading')" style="background: white; border: 1px solid #e5e5e5; border-radius: 8px; cursor: pointer; display: flex; flex-direction: column; overflow: hidden;">
+        <div style="height: 180px; background-color: #e6faf5; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <span style="color: #e53e3e; font-weight: 900; font-size: 2rem; border: 4px solid #e53e3e; padding: 5px 15px; transform: rotate(-20deg);">FAKE</span>
+        </div>
+        <div style="padding: 20px; text-align: left;">
+            <p style="color: #888; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin: 0 0 8px 0;">Telegram Channel</p>
+            <h3 style="font-family: var(--serif), serif; font-size: 1.1rem; color: #1a1a1a; margin: 0 0 15px 0;">Make $10K/Month Trading — Secret VIP Course</h3>
+            <div style="color: #e53e3e; font-size: 0.85rem; line-height: 1.6;">
+                <div>🚩 Guaranteed income claims</div>
+                <div>🚩 Crypto-only payment</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+      
+
     </style>
 <!-- </head> -->
 <!-- </style>
@@ -1323,87 +1384,64 @@
     <button class="filter-btn" onclick="setFilter(this)">Telegram</button>
   </div>
 
-  <div class="gallery-grid">
-
-    <div class="course-card fade-in visible">
-      <div class="card-thumb">
-        <div class="card-thumb-bg" style="background:#fde8e2;">📜</div>
-        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
-      </div>
-      <div class="card-body">
-        <div class="card-platform">Udemy Clone</div>
-        <div class="card-title">Complete AWS Solutions Architect — 3 Day Bootcamp</div>
-        <div class="card-flags">
-          <span class="card-flag">No LinkedIn verification</span>
-          <span class="card-flag">Anonymous instructor</span>
-          <span class="card-flag">Stock photo testimonials</span>
+  <div class="gallery-grid" style="display: grid !important; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important; gap: 25px !important; width: 100% !important; margin-top: 30px !important;">
+    
+    <div class="course-card fade-in visible" data-category="udemy" style="border: 1px solid #eaeaea !important; border-radius: 12px !important; overflow: hidden !important; background: #fff !important; cursor: pointer !important; display: flex !important; flex-direction: column !important;" onclick="autoScan('Complete AWS Solutions Architect – 3 Day Bootcamp')">
+        <div style="height: 180px !important; background: #fdf5e6 !important; display: flex !important; align-items: center !important; justify-content: center !important; position: relative !important; width: 100% !important;">
+            <div style="color: #e53e3e !important; font-weight: bold !important; font-size: 2rem !important; border: 4px solid #e53e3e !important; padding: 5px 15px !important; transform: rotate(-15deg) !important;">FAKE</div>
         </div>
-        <div class="card-footer">
-          <span class="card-date">Feb 18, 2026</span>
-          <span class="worthless-badge">Value: Worthless</span>
+        <div style="padding: 20px !important;">
+            <div style="color: #888 !important; font-size: 0.8rem !important; letter-spacing: 1px !important; margin-bottom: 5px !important;">Udemy Clone</div>
+            <div style="font-family: var(--serif) !important; font-size: 1.1rem !important; font-weight: bold !important; margin-bottom: 15px !important; color: #1a1a1a !important;">Complete AWS Solutions Architect – 3 Day Bootcamp</div>
+            <div style="color: #e53e3e !important; font-size: 0.85rem !important; display: flex !important; flex-direction: column !important; gap: 5px !important;">
+                <span>🚩 No LinkedIn verification</span>
+                <span>🚩 Anonymous instructor</span>
+            </div>
         </div>
-      </div>
     </div>
 
-    <div class="course-card fade-in visible" style="transition-delay:.1s">
-      <div class="card-thumb">
-        <div class="card-thumb-bg" style="background:#fff8e2;">🎓</div>
-        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
-      </div>
-      <div class="card-body">
-        <div class="card-platform">FakeCademy</div>
-        <div class="card-title">Machine Learning Engineer Certification — $9.99</div>
-        <div class="card-flags">
-          <span class="card-flag">Employer unrecognised cert</span>
-          <span class="card-flag">No practical projects</span>
+    <div class="course-card fade-in visible" data-category="linkedin" style="border: 1px solid #eaeaea !important; border-radius: 12px !important; overflow: hidden !important; background: #fff !important; cursor: pointer !important; display: flex !important; flex-direction: column !important;" onclick="autoScan('Premium Agile Scrum Master Badge')">
+        <div style="height: 180px !important; background: #e6f0fa !important; display: flex !important; align-items: center !important; justify-content: center !important; position: relative !important; width: 100% !important;">
+            <div style="color: #e53e3e !important; font-weight: bold !important; font-size: 2rem !important; border: 4px solid #e53e3e !important; padding: 5px 15px !important; transform: rotate(-5deg) !important;">FAKE</div>
         </div>
-        <div class="card-footer">
-          <span class="card-date">Feb 17, 2026</span>
-          <span class="worthless-badge">Value: Worthless</span>
+        <div style="padding: 20px !important;">
+            <div style="color: #888 !important; font-size: 0.8rem !important; letter-spacing: 1px !important; margin-bottom: 5px !important;">LinkedIn Fake</div>
+            <div style="font-family: var(--serif) !important; font-size: 1.1rem !important; font-weight: bold !important; margin-bottom: 15px !important; color: #1a1a1a !important;">Premium Agile Scrum Master Professional Badge</div>
+            <div style="color: #e53e3e !important; font-size: 0.85rem !important; display: flex !important; flex-direction: column !important; gap: 5px !important;">
+                <span>🚩 Fake certification body</span>
+                <span>🚩 Stolen credential graphics</span>
+            </div>
         </div>
-      </div>
     </div>
 
-    <div class="course-card fade-in visible" style="transition-delay:.2s">
-      <div class="card-thumb">
-        <div class="card-thumb-bg" style="background:#e8f2e8;">💰</div>
-        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
-      </div>
-      <div class="card-body">
-        <div class="card-platform">Telegram Channel</div>
-        <div class="card-title">Make $10K/Month Trading — Secret Course</div>
-        <div class="card-flags">
-          <span class="card-flag">Guaranteed income claims</span>
-          <span class="card-flag">No regulatory registration</span>
-          <span class="card-flag">Crypto-only payment</span>
+    <div class="course-card fade-in visible" data-category="youtube" style="border: 1px solid #eaeaea !important; border-radius: 12px !important; overflow: hidden !important; background: #fff !important; cursor: pointer !important; display: flex !important; flex-direction: column !important;" onclick="autoScan('ChatGPT & AI Master Class – Official Google Cert')">
+        <div style="height: 180px !important; background: #fae6e6 !important; display: flex !important; align-items: center !important; justify-content: center !important; position: relative !important; width: 100% !important;">
+            <div style="color: #e53e3e !important; font-weight: bold !important; font-size: 2rem !important; border: 4px solid #e53e3e !important; padding: 5px 15px !important; transform: rotate(10deg) !important;">FAKE</div>
         </div>
-        <div class="card-footer">
-          <span class="card-date">Feb 16, 2026</span>
-          <span class="worthless-badge">Value: Worthless</span>
+        <div style="padding: 20px !important;">
+            <div style="color: #888 !important; font-size: 0.8rem !important; letter-spacing: 1px !important; margin-bottom: 5px !important;">YouTube Scam</div>
+            <div style="font-family: var(--serif) !important; font-size: 1.1rem !important; font-weight: bold !important; margin-bottom: 15px !important; color: #1a1a1a !important;">ChatGPT & AI Master Class — Official Google Cert</div>
+            <div style="color: #e53e3e !important; font-size: 0.85rem !important; display: flex !important; flex-direction: column !important; gap: 5px !important;">
+                <span>🚩 Falsely claims Google affiliation</span>
+                <span>🚩 Copy-pasted free content</span>
+            </div>
         </div>
-      </div>
     </div>
 
-    <div class="course-card fade-in visible" style="transition-delay:.3s">
-      <div class="card-thumb">
-        <div class="card-thumb-bg" style="background:#e8eef5;">🧠</div>
-        <div class="card-fake-overlay"><div class="fake-watermark">FAKE</div></div>
-      </div>
-      <div class="card-body">
-        <div class="card-platform">YouTube Course</div>
-        <div class="card-title">ChatGPT &amp; AI Master Class — Official Google Cert</div>
-        <div class="card-flags">
-          <span class="card-flag">Falsely claims Google affiliation</span>
-          <span class="card-flag">Copy-pasted content</span>
+    <div class="course-card fade-in visible" data-category="telegram" style="border: 1px solid #eaeaea !important; border-radius: 12px !important; overflow: hidden !important; background: #fff !important; cursor: pointer !important; display: flex !important; flex-direction: column !important;" onclick="autoScan('Make $10K/Month Trading – Secret VIP Course')">
+        <div style="height: 180px !important; background: #e6faf5 !important; display: flex !important; align-items: center !important; justify-content: center !important; position: relative !important; width: 100% !important;">
+            <div style="color: #e53e3e !important; font-weight: bold !important; font-size: 2rem !important; border: 4px solid #e53e3e !important; padding: 5px 15px !important; transform: rotate(-20deg) !important;">FAKE</div>
         </div>
-        <div class="card-footer">
-          <span class="card-date">Feb 15, 2026</span>
-          <span class="worthless-badge">Value: Worthless</span>
+        <div style="padding: 20px !important;">
+            <div style="color: #888 !important; font-size: 0.8rem !important; letter-spacing: 1px !important; margin-bottom: 5px !important;">Telegram Channel</div>
+            <div style="font-family: var(--serif) !important; font-size: 1.1rem !important; font-weight: bold !important; margin-bottom: 15px !important; color: #1a1a1a !important;">Make $10K/Month Trading — Secret VIP Course</div>
+            <div style="color: #e53e3e !important; font-size: 0.85rem !important; display: flex !important; flex-direction: column !important; gap: 5px !important;">
+                <span>🚩 Guaranteed income claims</span>
+                <span>🚩 Crypto-only payment</span>
+            </div>
         </div>
-      </div>
     </div>
-
-  </div>
+</div>
 </section>
 
 <!-- VERIFY TOOL -->
@@ -1724,6 +1762,7 @@
   showResult();
 }
 </script>
+<script>
 const input = document.getElementById('course-input');
 const phrases = ["Paste a course URL...", "Search 'Master Python'...", "Check 'AI Certification'...", "Verify 'Job Guarantee' courses..."];
 let i = 0;
@@ -1742,16 +1781,47 @@ function type() {
   setTimeout(type, isDeleting ? 50 : 100);
 }
 type(); // Start the animation
+</script>
 <script>
-    // Clickable Cards Auto-Fill Function
+    // 1. THE AUTO-FILL FUNCTION
     function autoScan(courseName) {
-        const searchBar = document.getElementById('course-input');
-        if (searchBar) {
-            searchBar.value = courseName; // Fills the box with the card's text
-            searchBar.style.border = "2px solid #e53e3e"; // Highlights the box red so the user sees it
+        const inputField = document.getElementById('course-input');
+        if (inputField) {
+            inputField.value = courseName; // Drops the name into the box
+            inputField.focus();            // Puts the cursor there
+            inputField.style.border = "2px solid #e53e3e"; // Visual feedback
+            
+            // Optional: Automatically trigger the scan after 500ms
+            setTimeout(() => {
+                inputField.style.border = "1px solid #ddd";
+                console.log("Scanning for: " + courseName);
+            }, 1000);
         } else {
-            console.error("Could not find the search bar. Check the ID.");
+            console.error("Search bar with ID 'course-input' not found!");
         }
+    }
+
+    // 2. THE AUTO-TYPING ANIMATION
+    const input = document.getElementById('course-input');
+    const phrases = ["Paste a course URL...", "Search 'Master Python'...", "Check 'AI Certification'..."];
+    let i = 0, j = 0, isDeleting = false;
+
+    function type() {
+        if (!input) return;
+        let currentPhrase = phrases[i];
+        if (isDeleting) {
+            input.placeholder = currentPhrase.substring(0, j--);
+            if (j < 0) { isDeleting = false; i = (i + 1) % phrases.length; }
+        } else {
+            input.placeholder = currentPhrase.substring(0, j++);
+            if (j > currentPhrase.length) { isDeleting = true; setTimeout(type, 2000); return; }
+        }
+        setTimeout(type, isDeleting ? 50 : 100);
+    }
+    
+    // Start typing if the box is empty
+    if(input && input.value === "") {
+        type();
     }
 </script>
 
